@@ -1,0 +1,20 @@
+---
+import Base from '@layouts/Base.astro';
+import NormalLayout from '@layouts/NormalLayout.astro';
+import Explore from '@components/explore/Explore';
+---
+
+<Base
+  metadata={{
+    title: 'Explore',
+    description:
+      'Explore all the roadmaps created by the community and find the one that suits you best. What will you learn today?',
+    url: 'https://navigolearn.com/explore',
+  }}
+>
+    <NormalLayout>
+        <div>
+            <Explore client:idle />
+        </div>
+    </NormalLayout>
+</Base>

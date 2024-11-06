@@ -1,0 +1,3 @@
+[submodule "segment-env"]
+	path = segment-env
+	url = git@github.com:NavigoLearn/segment-env.git

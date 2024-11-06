@@ -1,0 +1,57 @@
+{
+  "extends": "astro/tsconfigs/base",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "lib": [
+      "DOM",
+      "DOM.iterable",
+      "es6"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": [
+          "src/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@typescript/*": [
+        "src/typescript-infrastructure/*"
+      ],
+      "@type/*": [
+        "src/types/*"
+      ],
+      "@mocks/*": [
+        "src/mockupdata/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+    }
+  },
+  "include": [
+    "src/**/*",
+    ".eslintrcworka.cjs",
+    "__tests__/unit/**/*",
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "vitest.config.ts"
+  ]
+}

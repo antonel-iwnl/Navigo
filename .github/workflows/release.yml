@@ -1,0 +1,49 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Set up JQ
+        run: sudo apt-get install jq
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Generate version number
+        id: version
+        run: echo "version=$(date +%y.%m.%d-%s)" >> $GITHUB_ENV
+
+      - name: Get package.json version
+        id: package_version
+        run: echo "package_version=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.PAT }}
+          generateReleaseNotes: true
+          name: Release ${{ env.version }}
+          tag: ${{ env.package_version }}
+          commit: production
+          draft: false
+          prerelease: false

@@ -1,0 +1,87 @@
+---
+import RoadmapLayout from '@layouts/RoadmapLayout.astro';
+import PagesDisplayManager from '@components/roadmap/pages-roadmap/PagesDisplayManager';
+import { IRoadmapApi } from '@src/types/explore_old/card';
+import FullScreenPopupManager from '@src/components/roadmap/pages-roadmap/FullScreenPopupManager';
+import Roadmap from "../../components/roadmap/Roadmap";
+import Base from "../../layouts/Base.astro";
+
+// metadata stuff
+let roadmap: IRoadmapApi;
+let title = 'Create a roadmap';
+let description = 'Create a roadmap to share your knowledge with the world!';
+let url = `https://navigolearn.com/roadmap/create`;
+let type = 'article';
+
+// working variables
+const { roadmapPath } = Astro.params;
+const isCreate = roadmapPath === 'create';
+let roadmapId = roadmapPath.match(/[0-9]+$/)?.[0];
+
+// if id is not a number, redirect to explore
+if (roadmapId === undefined && !isCreate)
+  return Astro.redirect('/explore', 302);
+try {
+  if (typeof roadmapId === 'string') {
+    // fetches roadmapData from api
+    const response = await fetch(`${Astro.site}api/roadmaps/${roadmapId}`, {
+      headers: Astro.request.headers,
+    });
+    const requestResponseJson = await response.json();
+    roadmap = requestResponseJson.data;
+    if (!roadmap)
+      return Astro.redirect('/explore', 302);
+
+    // if the name is not formatted correctly, redirect to the correct one
+    const formattedName =
+      (roadmap?.name || 'untitled')
+        .replace(/\s+/g, '-')
+        .toLowerCase()
+        .slice(0, 32) +
+      '-' +
+      roadmapId;
+
+    if (formattedName !== roadmapPath) {
+      return Astro.redirect(`/roadmap/${formattedName}`, 301);
+    }
+
+    title = roadmap.name;
+    let slicedDescription = roadmap.description.slice(0, 100);
+    let isOnlyWhiteSpace = !(/\S/.test(slicedDescription));
+    description = `${isOnlyWhiteSpace ? 'No description' : slicedDescription
+    }${
+      roadmap.description.length > 100 ? '...' : ''
+    } - ${roadmap.name} on NavigoLearn`;
+    url = `https://navigolearn.com/roadmap/${roadmapPath}`;
+    type = 'article';
+  }
+} catch (e) {
+  return Astro.redirect('/explore', 302);
+}
+---
+<Base
+  metadata={{
+    title,
+    description,
+    url,
+    type,
+  }}
+  excludeFooter={true}
+>
+  <RoadmapLayout>
+    <FullScreenPopupManager client:load isCreate={isCreate} />
+    <div class='h-[calc(100vh-64px)] md:mt-0 relative w-full'>
+      <!-- offset from nav reduced from total screen size -->
+      <div class='h-full relative'>
+        <Roadmap
+          pageId={roadmapPath}
+          roadmap={roadmap}
+          client:load
+        />
+      </div>
+      <div class='w-full h-full'>
+        <PagesDisplayManager client:idle />
+      </div>
+    </div>
+  </RoadmapLayout>
+</Base>

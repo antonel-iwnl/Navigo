@@ -1,0 +1,10 @@
+---
+import NavbarRoadmapDeprecated from '../components/roadmap/navbar-roadmap/deprecated/NavbarRoadmapDeprecated';
+import NavbarRoadmap from "../components/roadmap/navbar-roadmap/NavbarRoadmap";
+---
+
+<div>
+  <NavbarRoadmap client:load />
+  <slot />
+  <div id='menu-portal' class='absolute top-0 left-0 w-screen h-screen z-100 pointer-events-none'></div>
+</div>

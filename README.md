@@ -1,1 +1,3 @@
-# Navigo
+# FrontEnd
+
+NavigoLearn frontend repository
