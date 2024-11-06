@@ -10,7 +10,6 @@
     "start": "astro dev",
     "prebuild": "rm -rf ./dist && git submodule update --init --recursive",
     "build": "ISBUILD=true astro build",
-    "postbuild": "rm .env",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
