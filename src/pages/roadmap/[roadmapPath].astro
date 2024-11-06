@@ -58,6 +58,22 @@ try {
 } catch (e) {
   return Astro.redirect('/explore', 302);
 }
+
+// Export getStaticPaths function
+export async function getStaticPaths() {
+  try {
+    // Fetch all roadmap paths from your API or define them statically
+    const response = await fetch(`${Astro.site}api/roadmaps`);
+    const roadmaps = await response.json();
+
+    return roadmaps.map((roadmap) => ({
+      params: { roadmapPath: roadmap.id.toString() },
+    }));
+  } catch (error) {
+    console.error('Failed to fetch roadmap paths:', error);
+    return [];
+  }
+}
 ---
 <Base
   metadata={{

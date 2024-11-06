@@ -1,6 +1,15 @@
 ---
 import BaseCallback from '@layouts/BaseCallback.astro';
 
+export async function getStaticPaths() {
+  return [
+    { params: { service: 'google' } },
+    { params: { service: 'facebook' } },
+    { params: { service: 'twitter' } }
+  ];
+}
+
+
 const { service } = Astro.params;
 ---
 
