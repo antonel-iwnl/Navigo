@@ -8,10 +8,7 @@ import dotenv from 'dotenv';
 
 export default defineConfig({
   integrations: [tailwind(), react()],
-  output: 'server',
-  adapter: node({
-    mode: 'standalone',
-  }),
+  output: 'static',
   site: "https://navigo-git-main-antonio-rochneans-projects.vercel.app",
   compressHTML: true
 });
