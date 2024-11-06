@@ -12,6 +12,6 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-  site: "https://navigo-rjy4qfr5o-antonio-rochneans-projects.vercel.app",
+  site: "https://navigo-git-main-antonio-rochneans-projects.vercel.app",
   compressHTML: true
 });
