@@ -12,6 +12,6 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-  site: "http://localhost:3001/",
+//   site: "http://localhost:3001/",
   compressHTML: true
 });

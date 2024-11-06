@@ -1,8 +1,6 @@
 
 
 ---
-import RequestManager from '../to-be-organized/RequestManager';
-import AnalyticsManager from "../to-be-organized/analytics-module/AnalyticsManager";
 
 import '@fontsource/kanit';
 import '@fontsource/oxygen';
@@ -71,8 +69,6 @@ if (metadata !== undefined)
   </head>
 
   <body class='bg-background relative w-full min-h-screen font-kanit-text'>
-    <RequestManager client:load />
-    <AnalyticsManager segmentKey={SEGMENT_KEY} client:load  />
     <BasePopupManager client:load />
     <slot />
 
